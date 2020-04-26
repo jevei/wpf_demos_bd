@@ -23,6 +23,7 @@ namespace wpf_demo_phonebook
 
         public MainWindow()
         {
+            //commit initiale
             InitializeComponent();
         }
     }
