@@ -65,8 +65,8 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Prénom : "/>
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Nom de famille : "/>
@@ -74,12 +74,16 @@
                 <TextBlock Grid.Row="4" Grid.Column="0" Text="Téléphone : "/>
                 <TextBlock Grid.Row="5" Grid.Column="0" Text="Celluaire : "/>
                 <TextBlock Grid.Row="7" Grid.Column="0" Text="Identifiant : "/>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedContact.FirstName}"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedContact.LastName}"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedContact.Email}"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedContact.Phone}"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.Mobile}"/>
-                <TextBox  Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.ContactID}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding SelectedContact.FirstName}" HorizontalAlignment="Right" Width="240"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding SelectedContact.LastName}" HorizontalAlignment="Right" Width="240"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedContact.Email}" HorizontalAlignment="Right" Width="240"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedContact.Phone}" HorizontalAlignment="Right" Width="240"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.Mobile}" HorizontalAlignment="Right" Width="240"/>
+                <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.ContactID}" HorizontalAlignment="Right" Width="240"/>
+                <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Enregistrer"/>
+                    <Button Content="Supprimer"/>
+                </StackPanel>
             </Grid>
         </Grid>
     </DockPanel>
