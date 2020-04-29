@@ -55,5 +55,20 @@ namespace wpf_demo_phonebook
 
             return conn.ExecuteSelectQuery(_query, parameters);
         }
+        /// <summary>
+        /// Méthode permettant de rechercher un contact par id
+        /// </summary>
+        /// <param name="_name">Nom de famille ou prénom</param>
+        /// <returns>Une DataTable</returns>
+        public DataTable SearchAll()
+        {
+            string _query =
+                $"SELECT * " +
+                $"FROM [Contacts] ";
+
+            
+
+            return conn.ExecuteSelectQuery(_query);
+        }
     }
 }
