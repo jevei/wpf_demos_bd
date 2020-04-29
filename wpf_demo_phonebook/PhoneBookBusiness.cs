@@ -87,5 +87,9 @@ namespace wpf_demo_phonebook
         {
             dao.Supp(_id);
         }
+        public static void AddContact(ContactModel cm)
+        {
+            dao.Add(cm);
+        }
     }
 }

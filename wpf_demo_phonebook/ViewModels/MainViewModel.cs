@@ -44,11 +44,13 @@ namespace wpf_demo_phonebook.ViewModels
         public RelayCommand SearchContactCommand { get; set; }
         public RelayCommand SaveContactCommand { get; set; }
         public RelayCommand SuppContactCommand { get; set; }
+        public RelayCommand NewCustomerCommand { get; set; }
         public MainViewModel()
         {
             SearchContactCommand = new RelayCommand(SearchContact);
             SaveContactCommand = new RelayCommand(SaveContact);
             SuppContactCommand = new RelayCommand(SuppContact);
+            NewCustomerCommand = new RelayCommand(NewContact);
             //SelectedContact = PhoneBookBusiness.GetContactByID(1);
             Contacts = new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAllContact());
             Debug.WriteLine(Contacts.Count);
@@ -83,11 +85,17 @@ namespace wpf_demo_phonebook.ViewModels
         private void SaveContact(object parameter)
         {
             ContactModel SC=SelectedContact;
-            if ((SelectedContact != null)&&(Old==true))
+            if ((SelectedContact != null) && (Old == true))
             {
                 PhoneBookBusiness.SaveContact(SelectedContact);
                 Contacts = new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAllContact());
                 SelectedContact = PhoneBookBusiness.GetContactByID(SC.ContactID);
+            }
+            else if ((SelectedContact != null) && (Old == false))
+            {
+                Old = true;
+                PhoneBookBusiness.AddContact(SelectedContact);
+                Contacts = new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAllContact());
             }
         }
         private void SuppContact(object parameter)
@@ -100,10 +108,15 @@ namespace wpf_demo_phonebook.ViewModels
                 MessageBoxResult result = MessageBox.Show("Do you want to suppress this contact?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
                 if (result == MessageBoxResult.Yes)
                 {
-                    //PhoneBookBusiness.SuppContact(output);
+                    PhoneBookBusiness.SuppContact(output);
                     Contacts = new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAllContact());
                 }
             }
+        }
+        private void NewContact(object parameter)
+        {
+            SelectedContact = new ContactModel();
+            Old = false;
         }
     }
 }
