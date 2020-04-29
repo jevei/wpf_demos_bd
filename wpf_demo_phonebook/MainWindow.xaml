@@ -6,9 +6,6 @@
         xmlns:local="clr-namespace:wpf_demo_phonebook"
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="300" Width="800">
-    <Window.Resources>
-        
-    </Window.Resources>
     <DockPanel>
         <StackPanel DockPanel.Dock="Top">
             <Menu>
@@ -83,10 +80,14 @@
                 <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding SelectedContact.Email}" HorizontalAlignment="Right" Width="240"/>
                 <TextBox Grid.Row="4" Grid.Column="1" Text="{Binding SelectedContact.Phone}" HorizontalAlignment="Right" Width="240"/>
                 <TextBox Grid.Row="5" Grid.Column="1" Text="{Binding SelectedContact.Mobile}" HorizontalAlignment="Right" Width="240"/>
-                <TextBox Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.ContactID}" HorizontalAlignment="Right" Width="240"/>
+                <TextBox x:Name="id" Grid.Row="7" Grid.Column="1" Text="{Binding SelectedContact.ContactID}" HorizontalAlignment="Right" Width="240" IsReadOnly="True"/>
                 <StackPanel Grid.Column="1" Grid.Row="8" Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Content="Enregistrer"/>
-                    <Button Content="Supprimer"/>
+                    <Button Content="Enregistrer"
+                            Command="{Binding SaveContactCommand}" 
+                            CommandParameter="{Binding ElementName=id,Path=Text}"/>
+                    <Button Content="Supprimer"
+                            Command="{Binding SuppContactCommand}" 
+                            CommandParameter="{Binding ElementName=id,Path=Text}"/>
                 </StackPanel>
             </Grid>
         </Grid>

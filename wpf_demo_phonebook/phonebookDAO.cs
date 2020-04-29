@@ -70,5 +70,46 @@ namespace wpf_demo_phonebook
 
             return conn.ExecuteSelectQuery(_query);
         }
+        public void Save(ContactModel cm)
+        {
+            string _query =
+                $"UPDATE [Contacts] " +
+                $"SET FirstName = @firstName, LastName = @lastName, Email = @email, Phone = @phone, Mobile = @mobile "+
+                $"WHERE ContactID = @_id ";
+
+            SqlParameter[] parameters = new SqlParameter[6];
+            parameters[0] = new SqlParameter("@_id", SqlDbType.Int);
+            parameters[0].Value = cm.ContactID;
+
+            parameters[1] = new SqlParameter("@firstName", SqlDbType.NVarChar);
+            parameters[1].Value = cm.FirstName;
+
+            parameters[2] = new SqlParameter("@lastName", SqlDbType.NVarChar);
+            parameters[2].Value = cm.LastName;
+
+            parameters[3] = new SqlParameter("@email", SqlDbType.NVarChar);
+            parameters[3].Value = cm.Email;
+
+            parameters[4] = new SqlParameter("@phone", SqlDbType.NVarChar);
+            parameters[4].Value = cm.Phone;
+
+            parameters[5] = new SqlParameter("@mobile", SqlDbType.NVarChar);
+            parameters[5].Value = cm.Mobile;
+
+            conn.ExecutUpdateQuery(_query, parameters);
+        }
+        public void Supp(int _id)
+        {
+            string _query =
+                $"DELETE " +
+                $"FROM [Contacts] " +
+                $"WHERE ContactID = @_id ";
+
+            SqlParameter[] parameters = new SqlParameter[1];
+            parameters[0] = new SqlParameter("@_id", SqlDbType.Int);
+            parameters[0].Value = _id;
+
+            conn.ExecutDeleteQuery(_query, parameters);
+        }
     }
 }

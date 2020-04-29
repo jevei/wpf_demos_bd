@@ -79,5 +79,13 @@ namespace wpf_demo_phonebook
 
             return cm;
         }
+        public static void SaveContact(ContactModel cm)
+        {
+            dao.Save(cm);
+        }
+        public static void SuppContact(int _id)
+        {
+            dao.Supp(_id);
+        }
     }
 }

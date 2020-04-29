@@ -10,6 +10,7 @@ namespace wpf_demo_phonebook.ViewModels
     {
         private ContactModel selectedContact;
         private ObservableCollection<ContactModel> contacts;
+        private bool Old = true;
         public ObservableCollection<ContactModel> Contacts
         {
             get => contacts;
@@ -41,11 +42,14 @@ namespace wpf_demo_phonebook.ViewModels
         }
 
         public RelayCommand SearchContactCommand { get; set; }
-
+        public RelayCommand SaveContactCommand { get; set; }
+        public RelayCommand SuppContactCommand { get; set; }
         public MainViewModel()
         {
             SearchContactCommand = new RelayCommand(SearchContact);
-            SelectedContact = PhoneBookBusiness.GetContactByID(1);
+            SaveContactCommand = new RelayCommand(SaveContact);
+            SuppContactCommand = new RelayCommand(SuppContact);
+            //SelectedContact = PhoneBookBusiness.GetContactByID(1);
             Contacts = new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAllContact());
             Debug.WriteLine(Contacts.Count);
         }
@@ -74,6 +78,31 @@ namespace wpf_demo_phonebook.ViewModels
                 default:
                     MessageBox.Show("Unkonwn search method");
                     break;
+            }
+        }
+        private void SaveContact(object parameter)
+        {
+            ContactModel SC=SelectedContact;
+            if ((SelectedContact != null)&&(Old==true))
+            {
+                PhoneBookBusiness.SaveContact(SelectedContact);
+                Contacts = new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAllContact());
+                SelectedContact = PhoneBookBusiness.GetContactByID(SC.ContactID);
+            }
+        }
+        private void SuppContact(object parameter)
+        {
+            string input = parameter as string;
+            int output;
+            Int32.TryParse(input, out output);
+            if (SelectedContact != null)
+            {
+                MessageBoxResult result = MessageBox.Show("Do you want to suppress this contact?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    //PhoneBookBusiness.SuppContact(output);
+                    Contacts = new ObservableCollection<ContactModel>(PhoneBookBusiness.GetAllContact());
+                }
             }
         }
     }
